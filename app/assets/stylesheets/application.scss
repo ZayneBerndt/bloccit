@@ -14,6 +14,27 @@
  *= require_tree .
  *= require_self
  */
+
 h1 {
    color: red;
+ }
+
+ 
+.social-btn {
+    display: block;
+    float: left;
+    padding: 10px 10px;
+    border:none;
+    background-color: #ececec;
+    text-decoration: none;
+    font-size: 15px;
+    color: #FFF;
+}
+ 
+.social-btn:hover {
+    color: #efefef;
+}
+
+.social-btn {
+    background-color: #3b5998;
 }
