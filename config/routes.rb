@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  devise_for :users
  resources :posts, :question,:advertisement
 
   get 'welcome/contact'
