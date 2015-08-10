@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
   def create 
     @topic = Topic.find(params[:topic_id])
-    @post = Post.new(params.require(:post).permit(:title, :body))
+     @post = Post.new(post_params)
     @post.user = current_user
     @post.topic = @topic
     authorize @post
