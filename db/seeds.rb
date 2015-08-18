@@ -28,6 +28,7 @@ require 'faker'
    Comment.create!(
     # user: users.sample,   # we have not yet associated Users with Comments
      post: posts.sample,
+     user: user.sample,
      body: Faker::Lorem.paragraph
    )
  end
