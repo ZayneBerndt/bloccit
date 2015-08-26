@@ -14,15 +14,7 @@ class Post < ActiveRecord::Base
     scope :ordered_by_title, -> {reorder(title: :asc)}
     scope :ordered_by_reverse_created_at, -> { reorder(created_at: :asc) }
 
-def markdown_title
-        markdown_to_html(title)
-    end
 
-    def markdown_body
-        markdown_to_html(body)
-    end
-
-   
 
    after_create :create_vote 
 
@@ -62,9 +54,18 @@ def update_rank
 
   def save_with_initial_vote
   end
+ 
+ def markdown_to_html(title)
 
+  render_as_markdown(self.title)
+  end
+  
+  def markdown_to_html(body)
+   render_as_markdown(self.body)
+  end
 
-    private
+private 
+
     def markdown_to_html(markdown)
         renderer = Redcarpet::Render::HTML.new
         extensions = {fenced_code_blocks: true}
