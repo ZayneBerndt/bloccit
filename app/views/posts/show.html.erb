@@ -33,7 +33,7 @@
 +<div class="row">
 + <h5>Comments:</h5>
      <!-- rendering this way because at this point, for me, it's easier to read -->
-     <%= render partial: "comments/comment", locals: {comments: @comments} %><br>
+     <%= render @comments %><br>
 +    <% if policy(Comment.new).create? %>
      <%= render partial: "comments/form", locals: {topic: @topic, post: @post} %>
 +    <% end %>
