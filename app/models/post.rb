@@ -16,7 +16,6 @@ class Post < ActiveRecord::Base
 
 
 
-   after_create :create_vote 
 
    def points
         votes.sum(:value).to_i
@@ -44,7 +43,6 @@ def update_rank
     update_attribute(:rank, new_rank)
   end
 
-  private
  
   def create_vote
     user.votes.create(value: 1, post: self)
