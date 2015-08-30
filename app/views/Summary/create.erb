@@ -1,0 +1,8 @@
+<h1>create post summary</h1>
+<%def create
+   @summary = Summary.find(params[:summary_id])
+    @post = Post.new(params.require(:post).permit(:title, :body))
+    @post.user = current_user
+    @post.topic = @summary
+    authorize @post %>
+<%end%> 
