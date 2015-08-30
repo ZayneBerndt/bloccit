@@ -51,7 +51,10 @@ def update_rank
   
 
   def save_with_initial_vote
-  end
+     ActiveRecord::Base.transaction do
+      @post = self
+      user.votes.create(value: 1, post: @post)
+    end
  
  def markdown_to_html
 
