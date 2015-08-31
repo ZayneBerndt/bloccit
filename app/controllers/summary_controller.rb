@@ -1,9 +1,9 @@
-class SummaryController < ApplicationController
+class SummariesController < ApplicationController
   def index
   end
 
   def create
-  end
+  end 
 
   def new
   end

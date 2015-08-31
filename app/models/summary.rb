@@ -1,3 +1,3 @@
 class Summary < ActiveRecord::Base
-belongs_to :posts
+belong_to :post
 end
