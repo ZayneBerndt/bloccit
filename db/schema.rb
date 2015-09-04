@@ -72,14 +72,14 @@ ActiveRecord::Schema.define(version: 20150831091903) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "summary", force: :cascade do |t|
-    t.integer  "Post_id"
+  create_table "summaries", force: :cascade do |t|
+    t.integer  "post_id"
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "summary", ["Post_id"], name: "index_summary_on_Post_id"
+  add_index "summaries", ["post_id"], name: "index_summaries_on_post_id"
 
   create_table "topics", force: :cascade do |t|
     t.string   "name"

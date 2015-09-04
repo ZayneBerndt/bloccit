@@ -37,12 +37,7 @@ def update_rank
     update_attribute(:rank, new_rank)
   end
 
-  def update_rank
-    age = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24) # 1 day in seconds
-    new_rank = points + age
-
-    update_attribute(:rank, new_rank)
-  end
+ 
 
  
   def create_vote
@@ -53,26 +48,27 @@ def update_rank
 
   def save_with_initial_vote
      ActiveRecord::Base.transaction do
-      @post = self
-      user.votes.create value: 1 (post: self)
+      
+        user.votes.create(value: 1, post: self)
+        save
     end
+  end
  
- def markdown_to_html
+ def markdown_title
 
   render_as_markdown(self.title)
   end
   
-  def markdown_to_html
+  def markdown_body
    render_as_markdown(self.body)
   end
 
 private 
 
-    def markdown_to_html
+    def render_as_markdown
         renderer = Redcarpet::Render::HTML.new
         extensions = {fenced_code_blocks: true}
         redcarpet = Redcarpet::Markdown.new(renderer, extensions)
         (redcarpet.render markdown).html_safe
     end
-
 end
