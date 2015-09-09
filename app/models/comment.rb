@@ -14,7 +14,13 @@ after_create :send_favorite_emails
  
    def send_favorite_emails
      post.favorites.each do |favorite|
-       FavoriteMailer.new_comment(favorite.user, post, self).deliver_now
+       if should_receive_update_for?(favorite)
+         FavoriteMailer.new_comment(favorite.user, self.post, self).deliver_now
+       end
      end
+   end
+
+   def should_receive_update_for?(favorite)
+     user_id != favorite.user_id && favorite.user.email_favorites?
    end
 end
