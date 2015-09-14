@@ -30,13 +30,13 @@
  </div>
 
  </br>
-+
-+<div class="row">
-+ <h5>Comments:</h5>
+
+<div class="row"> 
+ <h5>Comments:</h5>
      <!-- rendering this way because at this point, for me, it's easier to read -->
-     <%= render @comments %><br>
-+    <% if policy(Comment.new).create? %>
+     <%= render partial: 'comments/comment', collection: @comments %>
+     <% if policy(Comment.new).create? %>
      <%= render partial: "comments/form", locals: {topic: @topic, post: @post} %>
-+    <% end %>
+     <% end %>
    </div>
  </div>
