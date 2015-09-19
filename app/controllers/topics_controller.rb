@@ -16,7 +16,7 @@ class TopicsController < ApplicationController
      authorize @topic
      @posts = @topic.posts.includes(:user).includes(:comments).paginate(page: params[:page], per_page: 10)
    end
-  end
+
 
   def edit
     @topic = Topic.find(params[:id])
@@ -61,8 +61,7 @@ class TopicsController < ApplicationController
    private
 
   def topic_params
-    params.require(:topic).permit(:name, :description,)
+    params.require(:topic).permit(:name, :description, :public)
   end
  end 
-end 
 

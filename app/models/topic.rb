@@ -3,7 +3,7 @@ class Topic < ActiveRecord::Base
 
  scope :visible_to, -> (user) {user ? all : :publicly_viewable}
 
-   validates :title, length: { minimum: 5 }, presence: true
+   validates :name, length: { minimum: 5 }, presence: true
 
   WillPaginate.per_page = 50
 

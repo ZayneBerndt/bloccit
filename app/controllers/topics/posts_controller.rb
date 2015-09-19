@@ -1,19 +1,7 @@
 class Topics::PostsController < ApplicationController
-  
-  before_action :flash_attack
-    
-    private
-    
-    def flash_attack
-      unless flash_attack?
-      flash[:error] = "You must be logged in to access this section"
-      end
-    end
     
     skip_before_action :require_login, only: [:new, :index ]
-      
-end
-
+    
 
   def index
     @posts = Post.all
