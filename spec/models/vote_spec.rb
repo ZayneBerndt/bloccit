@@ -1,17 +1,22 @@
 require 'rails_helper'
 
 describe Vote do
+ def valid?
+   (@vote == 1) || (@vote == -1)
+ end
    describe "validations" do
+   before do
+     let(:good_v) { Vote.new(value: 1) }
+     let(:bad_v) { Vote.new(value: -1) }
+     let(:no_v) { Vote.new(value:  2) }
+   end
      describe "value validation" do
        it "only allows -1 or 1 as values" do
-         up_vote = Vote.new(value: 1)
-         expect(up_vote.valid?).to eq(true)
-
-         down_vote = Vote.new(value: -1)
-         expect(down_vote.valid?).to eq(true)
-
-         invalid_vote = Vote.new(value: 2)
-         expect(invalid_vote.valid?).to eq(false)
+        # your expectations here
+        
+         expect(good_vote.valid?).to eq(true) 
+         expext(bad_vote.valid?).to eq(true)
+        expect(no_vote.valid?).to eq(false)
        end
      end
    end
