@@ -1,9 +1,7 @@
 class Topic < ActiveRecord::Base
- has_many :posts, dependent: :destroy
-
- scope :visible_to, -> (user) {user ? all : :publicly_viewable}
-
-   validates :name, length: { minimum: 5 }, presence: true
+  has_many :posts, dependent: :destroy
+  scope :visible_to, -> (user) {user ? all : :publicly_viewable}
+  validates :name, length: { minimum: 5 }, presence: true
 
   WillPaginate.per_page = 50
 
@@ -13,9 +11,9 @@ class Topic < ActiveRecord::Base
     else
       topic_collection.where(public: true)
     end
-   end
+  end
 
-    def privately_viewable
-     topic_collection.where(public: false)
+  def privately_viewable
+    topic_collection.where(public: false)
     end
-end
+  end

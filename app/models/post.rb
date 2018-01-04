@@ -12,14 +12,11 @@ class Post < ActiveRecord::Base
     validates :body, length: { minimum: 20 }, presence: true
     validates :topic, presence: true
     validates :user, presence: true
-    
+
     scope :ordered_by_title, -> {reorder(title: :asc)}
     scope :ordered_by_reverse_created_at, -> { reorder(created_at: :asc) }
 
-
-
-
-   def points
+    def points
         votes.sum(:value).to_i
     end
 
@@ -31,45 +28,37 @@ class Post < ActiveRecord::Base
         votes.where(value: -1).count
     end
 
-def update_rank
-    age_in_days = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24) # 1 day in seconds
-    new_rank = points + age_in_days
- 
-    update_attribute(:rank, new_rank)
-  end
+    def update_rank
+      age_in_days = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24) # 1 day in seconds
+      new_rank = points + age_in_days
+      update_attribute(:rank, new_rank)
+    end
 
- 
+    def create_vote
+      user.votes.create(value: 1, post: self)
+    end
 
- 
-  def create_vote
-    user.votes.create(value: 1, post: self)
-  end
-
-  
-
-  def save_with_initial_vote
-     ActiveRecord::Base.transaction do
-      
+    def save_with_initial_vote
+      ActiveRecord::Base.transaction do
         user.votes.create(value: 1, post: self)
         save
     end
   end
- 
- def markdown_title
 
-  render_as_markdown(self.title)
+  def markdown_title
+    render_as_markdown(self.title)
   end
-  
+
   def markdown_body
    render_as_markdown(self.body)
   end
 
-private 
+private
 
-    def render_as_markdown
-        renderer = Redcarpet::Render::HTML.new
-        extensions = {fenced_code_blocks: true}
-        redcarpet = Redcarpet::Markdown.new(renderer, extensions)
-        (redcarpet.render markdown).html_safe
-    end
+  def render_as_markdown
+    renderer = Redcarpet::Render::HTML.new
+    extensions = {fenced_code_blocks: true}
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+    (redcarpet.render markdown).html_safe
+  end
 end
